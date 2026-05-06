@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Log Analysis Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-elements">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <h1>AI Log Analysis</h1>
+            <p>Real-time CI/CD Intelligence Dashboard</p>
+        </header>
+
+        <section class="stats-row">
+            <div class="stat-card">
+                <h3>Total Analyzed</h3>
+                <div class="stat-value" id="total-count">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Resolved</h3>
+                <div class="stat-value success" id="success-count">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Needs Fix</h3>
+                <div class="stat-value warning" id="fail-count">0</div>
+            </div>
+        </section>
+
+        <section class="entries-section">
+            <div class="entries-header">
+                <h2>Recent Log Entries</h2>
+                <button id="refresh-btn" class="refresh-btn">Refresh Now</button>
+            </div>
+            <div class="table-container">
+                <table id="entries-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Status</th>
+                            <th>Summary</th>
+                            <th>Root Cause</th>
+                        </tr>
+                    </thead>
+                    <tbody id="entries-body">
+                        <!-- Entries will be dynamically inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

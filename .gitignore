@@ -1,0 +1,8 @@
+.env
+__pycache__/
+*.log
+.pytest_cache/
+db.json
+summary.md
+AI_Log_Analysis_POC.pptx
+*.pyc

@@ -1,0 +1,115 @@
+name: AI-Powered Log Analysis POC
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test-and-analyze:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write # Required for posting comments
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Build / Install Dependencies
+        id: build_step
+        run: |
+          # Simulate a build step that might fail. 
+          # For demo, we try to install a package that doesn't exist to show build failure capture.
+          # We'll comment this out by default or use a flag to trigger it.
+          echo "Simulating dependency installation..."
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt || (pip install non-existent-package-demo-12345 > build.log 2>&1 || true)
+
+      - name: Run Tests
+        id: run_tests
+        run: |
+          # Run pytest and capture output. 
+          pytest --tb=short > pytest.log 2>&1 || echo "Tests failed."
+        
+      - name: AI Log Analysis
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+        run: |
+          # Check which log to analyze (Build or Test)
+          if [ -f build.log ] && grep -q "ERROR" build.log; then
+            echo "Analyzing Build Failure..."
+            python scripts/analyze_log.py build.log
+          elif [ -f pytest.log ] && (grep -q "FAILED" pytest.log || grep -q "ERROR" pytest.log); then
+            echo "Analyzing Test Failure..."
+            python scripts/analyze_log.py pytest.log
+          else
+            echo "No failures detected to analyze."
+            # Optional: Generate a 'passed' entry for the dashboard
+            echo "All steps passed." > success.log
+            python scripts/analyze_log.py success.log
+          fi
+
+      - name: Load Summary for PR Comment
+        if: always()
+        id: load_summary
+        run: |
+          if [ -f summary.md ]; then
+            # Using a heredoc with a random delimiter to handle multiline content in ENV variables
+            DELIMITER=$(dd if=/dev/urandom bs=15 count=1 2>/dev/null | base64)
+            echo "SUMMARY<<$DELIMITER" >> $GITHUB_ENV
+            cat summary.md >> $GITHUB_ENV
+            echo "$DELIMITER" >> $GITHUB_ENV
+          else
+            echo "SUMMARY=No summary generated." >> $GITHUB_ENV
+          fi
+
+      - name: Post PR Comment
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const summary = process.env.SUMMARY;
+            if (summary && summary !== "No summary generated.") {
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: `## 🤖 AI Log Analysis Report\n\n${summary}`
+              });
+            }
+
+      - name: Add to Job Summary
+        if: always()
+        run: |
+          echo "## 🤖 AI Log Analysis" >> $GITHUB_STEP_SUMMARY
+          if [ -f summary.md ]; then
+            cat summary.md >> $GITHUB_STEP_SUMMARY
+          else
+            echo "Analysis summary not found." >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Upload Logs and Summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-analysis-results
+          path: |
+            pytest.log
+            summary.md
+
+      - name: Fail Workflow if Tests Failed
+        run: |
+          if grep -q "FAILED" pytest.log || grep -q "ERROR" pytest.log; then
+            echo "Failing workflow due to previous test failures."
+            exit 1
+          fi
