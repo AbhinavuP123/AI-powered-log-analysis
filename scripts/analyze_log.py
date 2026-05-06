@@ -27,11 +27,11 @@ def append_to_db(summary_text):
         status = "passed"
         
     # Improved regex for parsing sections
-    summary_match = re.search(r"\*\*1\) Summary:\*\*\s*(.+?)(?=\n\*\*2\)|\n$|$)", summary_text, re.DOTALL | re.IGNORECASE)
+    summary_match = re.search(r"(?:\*\*|\d+\.?\s*|\#\#\s*)1\)?[ \t]*Summary:?\**\s*(.+?)(?=\n(?:\*\*|\d+\.?\s*|\#\#\s*)2\)|\n$|$)", summary_text, re.DOTALL | re.IGNORECASE)
     if not summary_match:
         summary_match = re.search(r"Summary:\s*(.+?)(?=\nRoot|\n$|$)", summary_text, re.DOTALL | re.IGNORECASE)
         
-    root_cause_match = re.search(r"\*\*2\) Root cause of failures:\*\*\s*(.+?)(?=\n\*\*3\)|\n$|$)", summary_text, re.DOTALL | re.IGNORECASE)
+    root_cause_match = re.search(r"(?:\*\*|\d+\.?\s*|\#\#\s*)2\)?[ \t]*Root cause:?\**\s*(.+?)(?=\n(?:\*\*|\d+\.?\s*|\#\#\s*)3\)|\n$|$)", summary_text, re.DOTALL | re.IGNORECASE)
     if not root_cause_match:
         root_cause_match = re.search(r"Root cause:\s*(.+?)(?=\nFixes|\n$|$)", summary_text, re.DOTALL | re.IGNORECASE)
     
