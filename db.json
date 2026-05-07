@@ -1,0 +1,14 @@
+[
+    {
+        "timestamp": "2026-05-06T22:43:46.327664",
+        "status": "failed",
+        "summary": "**      *   The build failed during the test execution phase.     *   The error message indicates that the `pytest` command is not recognized.     *   This suggests that pytest is either not installed...",
+        "root_cause": "**      The primary root cause is that the `pytest` testing framework is not available in the system's PATH during the CI/CD execution.  This could be for a few reasons:      *   **pytest is not insta..."
+    },
+    {
+        "timestamp": "2026-05-07T00:08:41.824494",
+        "status": "failed",
+        "summary": "**     *   The build failed because the `pytest` command was not found.     *   This indicates `pytest` is not installed or not accessible in the system's PATH.     *   The testing process could not i...",
+        "root_cause": "**     The primary cause is that the `pytest` testing framework is either:     *   **Not installed:** `pytest` might not be present in the build environment.     *   **Not in PATH:**  Even if installe..."
+    }
+]
