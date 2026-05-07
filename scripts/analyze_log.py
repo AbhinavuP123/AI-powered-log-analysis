@@ -27,16 +27,17 @@ def append_to_db(summary_text):
         status = "passed"
         
     # Improved regex for parsing sections
-    summary_match = re.search(r"(?:\*\*|\d+\.?\s*|\#\#\s*)1\)?[ \t]*Summary:?\**\s*(.+?)(?=\n(?:\*\*|\d+\.?\s*|\#\#\s*)2\)|\n$|$)", summary_text, re.DOTALL | re.IGNORECASE)
+    # Improved regex for parsing sections - more flexible headers
+    summary_match = re.search(r"(?:\*\*|\#\#|\d+\.)\s*(?:1\)?|Summary):?\**\s*(.+?)(?=\n(?:\*\*|\#\#|\d+\.)\s*(?:2\)?|Root [Cc]ause)|$)", summary_text, re.DOTALL | re.IGNORECASE)
     if not summary_match:
-        summary_match = re.search(r"Summary:\s*(.+?)(?=\nRoot|\n$|$)", summary_text, re.DOTALL | re.IGNORECASE)
+        summary_match = re.search(r"Summary:\s*(.+?)(?=\nRoot|$)", summary_text, re.DOTALL | re.IGNORECASE)
         
-    root_cause_match = re.search(r"(?:\*\*|\d+\.?\s*|\#\#\s*)2\)?[ \t]*Root cause:?\**\s*(.+?)(?=\n(?:\*\*|\d+\.?\s*|\#\#\s*)3\)|\n$|$)", summary_text, re.DOTALL | re.IGNORECASE)
+    root_cause_match = re.search(r"(?:\*\*|\#\#|\d+\.)\s*(?:2\)?|Root [Cc]ause):?\**\s*(.+?)(?=\n(?:\*\*|\#\#|\d+\.)\s*(?:3\)?|Suggested [Ff]ixes)|$)", summary_text, re.DOTALL | re.IGNORECASE)
     if not root_cause_match:
-        root_cause_match = re.search(r"Root cause:\s*(.+?)(?=\nFixes|\n$|$)", summary_text, re.DOTALL | re.IGNORECASE)
+        root_cause_match = re.search(r"Root [Cc]ause.*?:?\s*(.+?)(?=\nSuggested [Ff]ixes|\n3\)?|$)", summary_text, re.DOTALL | re.IGNORECASE)
     
     summary = summary_match.group(1).strip() if summary_match else "See report for details."
-    root_cause = root_cause_match.group(1).strip() if root_cause_match else "Analysis in progress."
+    root_cause = root_cause_match.group(1).strip() if root_cause_match else "See full report in summary.md"
 
     entry = {
         "timestamp": datetime.datetime.now().isoformat(),
