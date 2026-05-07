@@ -1,2 +1,25 @@
-'pytest' is not recognized as an internal or external command,
-operable program or batch file.
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-9.0.3, pluggy-1.6.0
+rootdir: /home/runner/work/AI-powered-log-analysis/AI-powered-log-analysis
+plugins: anyio-4.13.0
+collected 3 items
+
+tests/test_demo.py .FF                                                   [100%]
+
+=================================== FAILURES ===================================
+_________________________________ test_failure _________________________________
+tests/test_demo.py:13: in test_failure
+    assert actual == expected, "Intentionally failing this test for AI analysis demonstration."
+E   AssertionError: Intentionally failing this test for AI analysis demonstration.
+E   assert 0 == 42
+----------------------------- Captured stdout call -----------------------------
+Debug Info: Expected 42, but got 0
+__________________________________ test_error __________________________________
+tests/test_demo.py:17: in test_error
+    raise ValueError("Something went wrong in the application logic!")
+E   ValueError: Something went wrong in the application logic!
+=========================== short test summary info ============================
+FAILED tests/test_demo.py::test_failure - AssertionError: Intentionally failing this test for AI analysis demonstration.
+assert 0 == 42
+FAILED tests/test_demo.py::test_error - ValueError: Something went wrong in the application logic!
+========================= 2 failed, 1 passed in 0.04s ==========================

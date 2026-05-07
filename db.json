@@ -16,5 +16,11 @@
         "status": "failed",
         "summary": "**  *   Two tests failed in `tests/test_demo.py`: `test_failure` due to an assertion error and `test_error` due to a raised `ValueError`. *   `test_failure` was intentionally designed to fail, asserti...",
         "root_cause": "Analysis in progress."
+    },
+    {
+        "timestamp": "2026-05-07T04:00:19.010255",
+        "status": "failed",
+        "summary": "**  *   The test suite ran 3 tests, with 1 passing and 2 failing. *   `test_failure` failed due to an assertion error where 0 was not equal to 42. *   `test_error` failed because a `ValueError` except...",
+        "root_cause": "Analysis in progress."
     }
 ]
