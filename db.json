@@ -28,5 +28,11 @@
         "status": "failed",
         "summary": ". Summary:**  *   The test suite executed 3 tests written in `tests/test_demo.py`. *   Two tests failed: `test_failure` due to an assertion error, and `test_error` due to a raised `ValueError`. *   On...",
         "root_cause": ". Root Cause of Failures:**  *   **`test_failure`:** The assertion `assert actual == expected` failed because `actual` was 0, while `expected` was 42. The error message \"Intentionally failing this tes..."
+    },
+    {
+        "timestamp": "2026-05-07T04:16:15.072389",
+        "status": "failed",
+        "summary": "*   The test suite ran 3 tests using pytest.     *   Two tests failed: `test_failure` due to an assertion error, and `test_error` due to a ValueError.     *   One test passed successfully.  2.  **Root...",
+        "root_cause": "of Failures:**     *   **`test_failure`:** The assertion `assert actual == expected` failed because `actual` was 0 and `expected` was 42.  The test was intentionally designed to fail to demonstrate AI..."
     }
 ]
