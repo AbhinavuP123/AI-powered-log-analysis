@@ -22,5 +22,11 @@
         "status": "failed",
         "summary": "Summary The test suite executed 8 tests in `tests/test_demo.py`, resulting in **6 failures** and 2 passes. These failures span a variety of standard Python exceptions including `AssertionError`, `Zero...",
         "root_cause": "Root Cause of Failures The failures are caused by distinct programmatic errors within `tests/test_demo.py`: *   **Logic Mismatch (`test_failure`):** An assertion failed because the actual value (0) di..."
+    },
+    {
+        "timestamp": "2026-05-11T18:05:16.348829",
+        "status": "failed",
+        "summary": "The test suite `tests/test_demo.py` experienced 6 failures and 2 successes. The failures include an intentional assertion failure, a ValueError, a ZeroDivisionError, a KeyError, a TypeError, and a Run...",
+        "root_cause": "s:**     *   `test_failure`: Intentional failure for demonstration purposes. The assertion `0 == 42` is designed to fail.     *   `test_error`: A `ValueError` is raised, indicating a general issue in ..."
     }
 ]

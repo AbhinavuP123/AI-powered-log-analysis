@@ -50,4 +50,4 @@ FAILED tests/test_demo.py::test_math_error - ZeroDivisionError: division by zero
 FAILED tests/test_demo.py::test_data_error - KeyError: 'license'
 FAILED tests/test_demo.py::test_type_mismatch - TypeError: can only concatenate str (not "int") to str
 FAILED tests/test_demo.py::test_deep_traceback_failure - RuntimeError: Critical failure in deep application logic!
-========================= 6 failed, 2 passed in 0.06s ==========================
+========================= 6 failed, 2 passed in 0.05s ==========================
