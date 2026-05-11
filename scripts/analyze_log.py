@@ -61,7 +61,7 @@ def main():
         print(f"Error: Log file not found at {log_path}")
         sys.exit(1)
         
-    with open(log_path, 'r', encoding='utf-8') as f:
+    with open(log_path, 'r', encoding='utf-8', errors='replace') as f:
         log_content = f.read()
 
     # Truncate log if it's too long
@@ -92,7 +92,13 @@ Log Output:
             print("Using Google Gemini for analysis...")
             client = genai.Client(api_key=google_key)
             
-            models_to_try = ['gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-1.5-pro']
+            models_to_try = [
+                'gemini-2.0-flash',
+                'gemini-flash-latest',
+                'gemini-1.5-flash', # Keeping as fallback
+                'gemini-2.5-flash',
+                'gemini-1.5-pro'
+            ]
             success = False
             
             for model_name in models_to_try:
@@ -106,14 +112,16 @@ Log Output:
                     success = True
                     break
                 except Exception as e:
-                    print(f"Model {model_name} failed: {e}")
-                    if "429" in str(e):
-                        continue # Try next model
+                    error_msg = str(e)
+                    print(f"Model {model_name} failed: {error_msg}")
+                    # Continue to next model if rate limited, not found, or server overloaded
+                    if any(code in error_msg for code in ["429", "404", "503", "NOT_FOUND", "ResourceExhausted"]):
+                        continue 
                     else:
                         raise e
             
             if not success:
-                raise Exception("All attempted Gemini models failed or reached rate limits.")
+                raise Exception("All attempted Gemini models failed, reached rate limits, or were not found.")
         
         elif anthropic_key:
             print("Using Anthropic Claude for analysis...")
