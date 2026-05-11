@@ -9,7 +9,13 @@ from google import genai
 from dotenv import load_dotenv
 
 # Load environment variables (for local testing)
-load_dotenv()
+from dotenv import load_dotenv, find_dotenv
+dotenv_path = find_dotenv()
+if dotenv_path:
+    print(f"Loaded environment variables from: {dotenv_path}")
+    load_dotenv(dotenv_path, override=True)
+else:
+    print("No .env file found, relying on system environment variables.")
 
 def append_to_db(summary_text):
     db_path = "db.json"
@@ -84,6 +90,11 @@ Log Output:
     openai_key = os.environ.get("OPENAI_API_KEY")
     anthropic_key = os.environ.get("ANTHROPIC_API_KEY")
     google_key = os.environ.get("GOOGLE_API_KEY")
+
+    # Debugging key presence (without exposing keys)
+    print(f"API Key Status - Google: {'Found' if google_key else 'Missing'}, "
+          f"OpenAI: {'Found' if openai_key else 'Missing'}, "
+          f"Anthropic: {'Found' if anthropic_key else 'Missing'}")
 
     summary = ""
 
