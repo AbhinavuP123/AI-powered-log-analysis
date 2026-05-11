@@ -90,33 +90,34 @@ Log Output:
     try:
         if google_key:
             print("Using Google Gemini for analysis...")
-            try:
-                client = genai.Client(api_key=google_key)
-                # Try 2.0 Flash first
+            client = genai.Client(api_key=google_key)
+            
+            models_to_try = ['gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-1.5-pro']
+            success = False
+            
+            for model_name in models_to_try:
                 try:
+                    print(f"Trying model: {model_name}...")
                     response = client.models.generate_content(
-                        model='gemini-2.0-flash',
+                        model=model_name,
                         contents=prompt
                     )
                     summary = response.text
+                    success = True
+                    break
                 except Exception as e:
+                    print(f"Model {model_name} failed: {e}")
                     if "429" in str(e):
-                        print("Gemini 2.0 Flash rate limited. Trying Gemini 1.5 Flash...")
-                        response = client.models.generate_content(
-                            model='gemini-1.5-flash',
-                            contents=prompt
-                        )
-                        summary = response.text
+                        continue # Try next model
                     else:
                         raise e
-            except Exception as e:
-                if "429" in str(e):
-                    print("All Gemini models rate limited. Falling back to Mock analysis.")
-                    summary = generate_mock_summary(log_content)
-                else:
-                    raise e
+            
+            if not success:
+                raise Exception("All attempted Gemini models failed or reached rate limits.")
+        
         elif anthropic_key:
             print("Using Anthropic Claude for analysis...")
+            # ... (Existing Anthropic logic)
             client = anthropic.Anthropic(api_key=anthropic_key)
             response = client.messages.create(
                 model="claude-3-5-sonnet-latest",
@@ -128,6 +129,7 @@ Log Output:
             summary = response.content[0].text
         elif openai_key:
             print("Using OpenAI GPT for analysis...")
+            # ... (Existing OpenAI logic)
             client = OpenAI(api_key=openai_key)
             response = client.chat.completions.create(
                 model="gpt-4o",
@@ -140,12 +142,8 @@ Log Output:
             )
             summary = response.choices[0].message.content
         else:
-            print("No API key provided. Generating mock analysis.")
-            summary = generate_mock_summary(log_content)
-
-        # Ensure summary is not empty
-        if not summary:
-            summary = generate_mock_summary(log_content)
+            print("No valid API keys found.")
+            sys.exit(1)
 
         # Write to summary.md for the workflow to read
         with open("summary.md", "w", encoding='utf-8') as f:
@@ -158,41 +156,9 @@ Log Output:
         print("Dashboard database (db.json) updated.")
     except Exception as e:
         print(f"Error during AI analysis: {e}")
-        # Final fallback to avoid workflow failure
-        fallback_summary = generate_mock_summary(log_content)
         with open("summary.md", "w", encoding='utf-8') as f:
-            f.write(fallback_summary)
-        append_to_db(fallback_summary)
-        print("Fell back to Mock analysis due to critical error.")
-
-def generate_mock_summary(log_content):
-    """Generates a structured mock summary based on the log content."""
-    summary_text = "### 🤖 AI Analysis (Fallback/Mock)\n\n"
-    summary_text += "**1) Summary:**\nThe test suite executed multiple tests. "
-    
-    if "FAILED" in log_content or "ERROR" in log_content:
-        summary_text += "Several failures were detected across different modules.\n"
-        
-        # Simple rule-based extraction for the mock
-        causes = []
-        if "ZeroDivisionError" in log_content: causes.append("Division by zero")
-        if "KeyError" in log_content: causes.append("Missing dictionary key")
-        if "TypeError" in log_content: causes.append("Type mismatch (String + Int)")
-        if "AssertionError" in log_content: causes.append("Failed assertions")
-        
-        summary_text += "\n**2) Root cause:**\n"
-        if causes:
-            summary_text += "Detected errors: " + ", ".join(causes) + ".\n"
-        else:
-            summary_text += "Generic application failure or environment issue.\n"
-            
-        summary_text += "\n**3) Suggested fixes:**\n"
-        summary_text += "- Review the specific lines in the log for precise error locations.\n"
-        summary_text += "- Ensure data types are consistent and dictionary keys exist before access.\n"
-    else:
-        summary_text += "All tests passed successfully.\n\n**2) Root cause:**\nN/A\n\n**3) Suggested fixes:**\nNone needed."
-        
-    return summary_text
+            f.write(f"### ❌ AI Analysis Failed\n\nAn error occurred: {str(e)}")
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()
