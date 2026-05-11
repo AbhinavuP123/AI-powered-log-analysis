@@ -1,109 +1,48 @@
-============================= test session starts =============================
-platform win32 -- Python 3.13.13, pytest-9.0.3, pluggy-1.6.0 -- C:\Users\hp\AppData\Local\Microsoft\WindowsApps\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\python.exe
-cachedir: .pytest_cache
-rootdir: C:\Users\hp\Downloads\latest_project_
-plugins: anyio-4.12.1
-collecting ... collected 8 items
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-9.0.3, pluggy-1.6.0
+rootdir: /home/runner/work/AI-powered-log-analysis/AI-powered-log-analysis
+plugins: anyio-4.13.0
+collected 8 items
 
-tests/test_demo.py::test_success PASSED                                  [ 12%]
-tests/test_demo.py::test_failure FAILED                                  [ 25%]
-tests/test_demo.py::test_error FAILED                                    [ 37%]
-tests/test_demo.py::test_math_error FAILED                               [ 50%]
-tests/test_demo.py::test_data_error FAILED                               [ 62%]
-tests/test_demo.py::test_type_mismatch FAILED                            [ 75%]
-tests/test_demo.py::test_large_output_success PASSED                     [ 87%]
-tests/test_demo.py::test_deep_traceback_failure FAILED                   [100%]
+tests/test_demo.py .FFFFF.F                                              [100%]
 
-================================== FAILURES ===================================
-________________________________ test_failure _________________________________
-
-    def test_failure():
-        """A test that intentionally fails to trigger AI analysis."""
-        expected = 42
-        actual = 0
-        print(f"Debug Info: Expected {expected}, but got {actual}")
->       assert actual == expected, "Intentionally failing this test for AI analysis demonstration."
-E       AssertionError: Intentionally failing this test for AI analysis demonstration.
-E       assert 0 == 42
-
-tests\test_demo.py:13: AssertionError
----------------------------- Captured stdout call -----------------------------
+=================================== FAILURES ===================================
+_________________________________ test_failure _________________________________
+tests/test_demo.py:13: in test_failure
+    assert actual == expected, "Intentionally failing this test for AI analysis demonstration."
+E   AssertionError: Intentionally failing this test for AI analysis demonstration.
+E   assert 0 == 42
+----------------------------- Captured stdout call -----------------------------
 Debug Info: Expected 42, but got 0
-_________________________________ test_error __________________________________
-
-    def test_error():
-        """A test that raises an error."""
->       raise ValueError("Something went wrong in the application logic!")
-E       ValueError: Something went wrong in the application logic!
-
-tests\test_demo.py:17: ValueError
-_______________________________ test_math_error _______________________________
-
-    def test_math_error():
-        """A test that causes a division by zero."""
-        x = 10
-        y = 0
->       result = x / y
-                 ^^^^^
-E       ZeroDivisionError: division by zero
-
-tests\test_demo.py:23: ZeroDivisionError
-_______________________________ test_data_error _______________________________
-
-    def test_data_error():
-        """A test that accesses a missing key in a dictionary."""
-        data = {"name": "Antigravity", "version": "1.0"}
-        # Accessing a key that doesn't exist
-        key = "license"
-        print(f"Checking for key: {key}")
->       value = data[key]
-                ^^^^^^^^^
-E       KeyError: 'license'
-
-tests\test_demo.py:32: KeyError
----------------------------- Captured stdout call -----------------------------
+__________________________________ test_error __________________________________
+tests/test_demo.py:17: in test_error
+    raise ValueError("Something went wrong in the application logic!")
+E   ValueError: Something went wrong in the application logic!
+_______________________________ test_math_error ________________________________
+tests/test_demo.py:23: in test_math_error
+    result = x / y
+E   ZeroDivisionError: division by zero
+_______________________________ test_data_error ________________________________
+tests/test_demo.py:32: in test_data_error
+    value = data[key]
+E   KeyError: 'license'
+----------------------------- Captured stdout call -----------------------------
 Checking for key: license
-_____________________________ test_type_mismatch ______________________________
-
-    def test_type_mismatch():
-        """A test that performs an invalid type operation."""
-        a = "100"
-        b = 50
-        # This will fail because you can't add a string and an integer
->       total = a + b
-                ^^^^^
-E       TypeError: can only concatenate str (not "int") to str
-
-tests\test_demo.py:40: TypeError
-_________________________ test_deep_traceback_failure _________________________
-
-    def test_deep_traceback_failure():
-        """A test that fails deep in a call stack to test AI's root cause analysis."""
-        def level_3():
-            raise RuntimeError("Critical failure in deep application logic!")
-    
-        def level_2():
-            level_3()
-    
-        def level_1():
-            level_2()
-    
->       level_1()
-
-tests\test_demo.py:60: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-tests\test_demo.py:58: in level_1
+______________________________ test_type_mismatch ______________________________
+tests/test_demo.py:40: in test_type_mismatch
+    total = a + b
+E   TypeError: can only concatenate str (not "int") to str
+_________________________ test_deep_traceback_failure __________________________
+tests/test_demo.py:60: in test_deep_traceback_failure
+    level_1()
+tests/test_demo.py:58: in level_1
     level_2()
-tests\test_demo.py:55: in level_2
+tests/test_demo.py:55: in level_2
     level_3()
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-
-    def level_3():
->       raise RuntimeError("Critical failure in deep application logic!")
-E       RuntimeError: Critical failure in deep application logic!
-
-tests\test_demo.py:52: RuntimeError
-=========================== short test summary info ===========================
+tests/test_demo.py:52: in level_3
+    raise RuntimeError("Critical failure in deep application logic!")
+E   RuntimeError: Critical failure in deep application logic!
+=========================== short test summary info ============================
 FAILED tests/test_demo.py::test_failure - AssertionError: Intentionally failing this test for AI analysis demonstration.
 assert 0 == 42
 FAILED tests/test_demo.py::test_error - ValueError: Something went wrong in the application logic!
@@ -111,4 +50,4 @@ FAILED tests/test_demo.py::test_math_error - ZeroDivisionError: division by zero
 FAILED tests/test_demo.py::test_data_error - KeyError: 'license'
 FAILED tests/test_demo.py::test_type_mismatch - TypeError: can only concatenate str (not "int") to str
 FAILED tests/test_demo.py::test_deep_traceback_failure - RuntimeError: Critical failure in deep application logic!
-========================= 6 failed, 2 passed in 0.46s =========================
+========================= 6 failed, 2 passed in 0.05s ==========================
