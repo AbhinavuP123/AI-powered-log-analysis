@@ -1,0 +1,56 @@
+<<<<<<< HEAD
+=======
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-9.0.3, pluggy-1.6.0
+rootdir: /home/runner/work/AI-powered-log-analysis/AI-powered-log-analysis
+plugins: anyio-4.13.0
+collected 8 items
+
+tests/test_demo.py .FFFFF.F                                              [100%]
+
+=================================== FAILURES ===================================
+_________________________________ test_failure _________________________________
+tests/test_demo.py:13: in test_failure
+    assert actual == expected, "Intentionally failing this test for AI analysis demonstration."
+E   AssertionError: Intentionally failing this test for AI analysis demonstration.
+E   assert 0 == 42
+----------------------------- Captured stdout call -----------------------------
+Debug Info: Expected 42, but got 0
+__________________________________ test_error __________________________________
+tests/test_demo.py:17: in test_error
+    raise ValueError("Something went wrong in the application logic!")
+E   ValueError: Something went wrong in the application logic!
+_______________________________ test_math_error ________________________________
+tests/test_demo.py:23: in test_math_error
+    result = x / y
+E   ZeroDivisionError: division by zero
+_______________________________ test_data_error ________________________________
+tests/test_demo.py:32: in test_data_error
+    value = data[key]
+E   KeyError: 'license'
+----------------------------- Captured stdout call -----------------------------
+Checking for key: license
+______________________________ test_type_mismatch ______________________________
+tests/test_demo.py:40: in test_type_mismatch
+    total = a + b
+E   TypeError: can only concatenate str (not "int") to str
+_________________________ test_deep_traceback_failure __________________________
+tests/test_demo.py:60: in test_deep_traceback_failure
+    level_1()
+tests/test_demo.py:58: in level_1
+    level_2()
+tests/test_demo.py:55: in level_2
+    level_3()
+tests/test_demo.py:52: in level_3
+    raise RuntimeError("Critical failure in deep application logic!")
+E   RuntimeError: Critical failure in deep application logic!
+=========================== short test summary info ============================
+FAILED tests/test_demo.py::test_failure - AssertionError: Intentionally failing this test for AI analysis demonstration.
+assert 0 == 42
+FAILED tests/test_demo.py::test_error - ValueError: Something went wrong in the application logic!
+FAILED tests/test_demo.py::test_math_error - ZeroDivisionError: division by zero
+FAILED tests/test_demo.py::test_data_error - KeyError: 'license'
+FAILED tests/test_demo.py::test_type_mismatch - TypeError: can only concatenate str (not "int") to str
+FAILED tests/test_demo.py::test_deep_traceback_failure - RuntimeError: Critical failure in deep application logic!
+========================= 6 failed, 2 passed in 0.05s ==========================
+>>>>>>> 7c95e4221227161950eaf73acca057fc728b93d1
