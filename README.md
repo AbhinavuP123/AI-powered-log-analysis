@@ -1,9 +1,5 @@
 # 🤖 AI-Powered CI/CD Log Analyst
 
-[![AI Log Analysis](https://img.shields.io/badge/AI-Powered-blueviolet?style=for-the-badge&logo=google-gemini)](https://github.com/AbhinavuP123/AI-powered-log-analysis)
-[![Python](https://img.shields.io/badge/Python-3.10+-blue?style=for-the-badge&logo=python)](https://python.org)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
-
 > Transform cryptic CI/CD failure logs into actionable remediation steps instantly using state-of-the-art LLMs.
 
 ---
@@ -90,7 +86,3 @@ Visit `http://localhost:8000/dashboard/` to view the interactive analysis portal
 The repository includes `tests/test_demo.py` which contains intentional failures. This allows you to witness the AI's diagnostic capabilities immediately upon your first workflow run!
 
 ---
-
-<p align="center">
-  Built with ❤️ for the Developer Experience.
-</p>
