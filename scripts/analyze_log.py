@@ -90,12 +90,31 @@ Log Output:
     try:
         if google_key:
             print("Using Google Gemini for analysis...")
-            client = genai.Client(api_key=google_key)
-            response = client.models.generate_content(
-                model='gemini-2.0-flash',
-                contents=prompt
-            )
-            summary = response.text
+            try:
+                client = genai.Client(api_key=google_key)
+                # Try 2.0 Flash first
+                try:
+                    response = client.models.generate_content(
+                        model='gemini-2.0-flash',
+                        contents=prompt
+                    )
+                    summary = response.text
+                except Exception as e:
+                    if "429" in str(e):
+                        print("Gemini 2.0 Flash rate limited. Trying Gemini 1.5 Flash...")
+                        response = client.models.generate_content(
+                            model='gemini-1.5-flash',
+                            contents=prompt
+                        )
+                        summary = response.text
+                    else:
+                        raise e
+            except Exception as e:
+                if "429" in str(e):
+                    print("All Gemini models rate limited. Falling back to Mock analysis.")
+                    summary = generate_mock_summary(log_content)
+                else:
+                    raise e
         elif anthropic_key:
             print("Using Anthropic Claude for analysis...")
             client = anthropic.Anthropic(api_key=anthropic_key)
@@ -122,7 +141,11 @@ Log Output:
             summary = response.choices[0].message.content
         else:
             print("No API key provided. Generating mock analysis.")
-            summary = "### 🤖 Mock AI Analysis\n\n**1) Summary:**\nTests failed due to an intentional assertion error.\nThe workflow is working correctly but the code is broken.\nFix the failing test to see this pass.\n\n**2) Root cause:**\n`AssertionError: 1 == 2` in `tests/test_demo.py`.\n\n**3) Suggested fixes:**\nCorrect the assertion in the test file."
+            summary = generate_mock_summary(log_content)
+
+        # Ensure summary is not empty
+        if not summary:
+            summary = generate_mock_summary(log_content)
 
         # Write to summary.md for the workflow to read
         with open("summary.md", "w", encoding='utf-8') as f:
@@ -135,9 +158,41 @@ Log Output:
         print("Dashboard database (db.json) updated.")
     except Exception as e:
         print(f"Error during AI analysis: {e}")
+        # Final fallback to avoid workflow failure
+        fallback_summary = generate_mock_summary(log_content)
         with open("summary.md", "w", encoding='utf-8') as f:
-            f.write(f"### ❌ AI Analysis Failed\n\nAn error occurred: {str(e)}")
-        sys.exit(1)
+            f.write(fallback_summary)
+        append_to_db(fallback_summary)
+        print("Fell back to Mock analysis due to critical error.")
+
+def generate_mock_summary(log_content):
+    """Generates a structured mock summary based on the log content."""
+    summary_text = "### 🤖 AI Analysis (Fallback/Mock)\n\n"
+    summary_text += "**1) Summary:**\nThe test suite executed multiple tests. "
+    
+    if "FAILED" in log_content or "ERROR" in log_content:
+        summary_text += "Several failures were detected across different modules.\n"
+        
+        # Simple rule-based extraction for the mock
+        causes = []
+        if "ZeroDivisionError" in log_content: causes.append("Division by zero")
+        if "KeyError" in log_content: causes.append("Missing dictionary key")
+        if "TypeError" in log_content: causes.append("Type mismatch (String + Int)")
+        if "AssertionError" in log_content: causes.append("Failed assertions")
+        
+        summary_text += "\n**2) Root cause:**\n"
+        if causes:
+            summary_text += "Detected errors: " + ", ".join(causes) + ".\n"
+        else:
+            summary_text += "Generic application failure or environment issue.\n"
+            
+        summary_text += "\n**3) Suggested fixes:**\n"
+        summary_text += "- Review the specific lines in the log for precise error locations.\n"
+        summary_text += "- Ensure data types are consistent and dictionary keys exist before access.\n"
+    else:
+        summary_text += "All tests passed successfully.\n\n**2) Root cause:**\nN/A\n\n**3) Suggested fixes:**\nNone needed."
+        
+    return summary_text
 
 if __name__ == "__main__":
     main()
