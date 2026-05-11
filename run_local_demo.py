@@ -11,7 +11,7 @@ def main():
     
     # 1. Run Tests
     print("Step 1: Running tests and capturing logs...")
-    run_command("pytest --tb=short > pytest.log 2>&1")
+    run_command("python -m pytest -vv --show-capture=all > pytest.log 2>&1")
     
     if os.path.exists("pytest.log"):
         print("[OK] Captured pytest.log")
