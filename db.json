@@ -78,9 +78,28 @@
         "root_cause": "Root Cause * **Primary Cause:** A `DivisionByZeroError`. The code at line 42 attempted to perform a division operation where the denominator (the divisor) was evaluated as `0`. * **Secondary Issue:** ..."
     },
     {
+<<<<<<< Updated upstream
         "timestamp": "2026-05-11T17:43:19.271035",
         "status": "failed",
         "summary": "The test suite `tests/test_demo.py` experienced multiple failures. Six tests failed due to various reasons including an intentional assertion failure, a ValueError, a ZeroDivisionError, a KeyError, a ...",
         "root_cause": "s:**     *   `test_failure`: An intentional assertion failure was triggered where 0 was asserted to be equal to 42.     *   `test_error`: A `ValueError` was raised, indicating a problem in the applica..."
+=======
+        "timestamp": "2026-05-11T23:16:29.164917",
+        "status": "failed",
+        "summary": "3-Line Summary * The log indicates a generic \"Test error\" occurred during the build/test execution. * There is a significant character encoding mismatch, likely UTF-16 being rendered as UTF-8 or ASCII...",
+        "root_cause": "Root Cause of Failures * **Encoding Mismatch (Primary Log Issue):** The leading characters (``) and the spaced-out text (`T e s t`) suggest the output stream is in **UTF-16** (common in Windows/PowerS..."
+    },
+    {
+        "timestamp": "2026-05-11T23:16:32.015691",
+        "status": "failed",
+        "summary": "Summary * The build process failed during the test execution phase with a generic \"Test error\" message. * The log output is malformed, exhibiting character spacing and encoding artifacts. * No specifi...",
+        "root_cause": "Root Cause * **Encoding Mismatch:** The most likely cause is that the test runner is outputting text in **UTF-16 (Little Endian)**, but the CI console is interpreting it as **ASCII/UTF-8**. This resul..."
+    },
+    {
+        "timestamp": "2026-05-11T23:17:01.341580",
+        "status": "failed",
+        "summary": "3-Line Summary * The build failed during the testing phase with a generic \"Test error\" message. * The log output is heavily garbled, characterized by wide spacing between characters and leading junk s...",
+        "root_cause": "Root Cause The primary issue appears to be an **Encoding Mismatch**.  * **Character Encoding:** The spaces between letters (`T e s t`) suggest the output is being written in **UTF-16** (where every se..."
+>>>>>>> Stashed changes
     }
 ]
