@@ -68,6 +68,7 @@ jobs:
             DELIMITER=$(dd if=/dev/urandom bs=15 count=1 2>/dev/null | base64)
             echo "SUMMARY<<$DELIMITER" >> $GITHUB_ENV
             cat summary.md >> $GITHUB_ENV
+            echo "" >> $GITHUB_ENV
             echo "$DELIMITER" >> $GITHUB_ENV
           else
             echo "SUMMARY=No summary generated." >> $GITHUB_ENV

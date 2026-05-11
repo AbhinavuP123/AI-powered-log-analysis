@@ -167,6 +167,8 @@ Log Output:
         # Write to summary.md for the workflow to read
         with open("summary.md", "w", encoding='utf-8') as f:
             f.write(summary)
+            if not summary.endswith('\n'):
+                f.write('\n')
             
         print("Analysis complete. Summary saved to summary.md")
         
@@ -176,7 +178,7 @@ Log Output:
     except Exception as e:
         print(f"Error during AI analysis: {e}")
         with open("summary.md", "w", encoding='utf-8') as f:
-            f.write(f"### ❌ AI Analysis Failed\n\nAn error occurred: {str(e)}")
+            f.write(f"### ❌ AI Analysis Failed\n\nAn error occurred: {str(e)}\n")
         sys.exit(1)
 
 if __name__ == "__main__":
