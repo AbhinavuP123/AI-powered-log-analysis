@@ -58,5 +58,11 @@
         "status": "passed",
         "summary": "The test suite `tests/test_demo.py` experienced 6 failures out of 8 tests. Failures include an intentional assertion error, exceptions due to application logic errors, zero division, missing dictionar...",
         "root_cause": "s:**     *   `test_failure`: Intentional assertion failure for demonstration.     *   `test_error`: A `ValueError` was raised, indicating a problem in application logic.     *   `test_math_error`: A `..."
+    },
+    {
+        "timestamp": "2026-05-11T16:58:19.110708",
+        "status": "failed",
+        "summary": "The test suite `tests/test_demo.py` experienced multiple failures. Six tests failed due to various reasons, including assertion errors, exceptions (ValueError, ZeroDivisionError, KeyError, TypeError, ...",
+        "root_cause": "s:**     *   `test_failure`: Intentionally designed to fail, demonstrating assertion failure reporting.     *   `test_error`: A `ValueError` is raised, indicating an error in the application's logic. ..."
     }
 ]
