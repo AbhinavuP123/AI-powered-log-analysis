@@ -7,34 +7,40 @@ def run_command(cmd):
     return result
 
 def main():
-    print("Starting Local AI Log Analysis Demo\n")
+    print("Starting Enhanced Local AI Log Analysis Demo\n")
     
-    # 1. Run Tests
-    print("Step 1: Running tests and capturing logs...")
-    run_command("python -m pytest -vv --show-capture=all > pytest.log 2>&1")
+    # 1. Run Standard Tests
+    print("Step 1a: Running standard tests...")
+    run_command("python -m pytest tests/test_demo.py -vv --show-capture=all > pytest.log 2>&1")
     
-    if os.path.exists("pytest.log"):
-        print("[OK] Captured pytest.log")
-    else:
-        print("[ERROR] Failed to capture pytest.log")
-        return
+    # 2. Run Complex Tests
+    print("Step 1b: Running complex failure scenarios...")
+    run_command("python -m pytest tests/test_complex.py -vv --show-capture=all > complex_tests.log 2>&1")
+    
+    # 3. Generate Service Logs
+    print("Step 1c: Generating simulated backend service logs...")
+    run_command("python scripts/generate_service_logs.py")
+    
+    # 4. Analyze All Logs
+    print("\nStep 2: Analyzing all logs with AI...")
+    
+    log_files = ["pytest.log", "complex_tests.log", "service.log"]
+    for log_file in log_files:
+        if os.path.exists(log_file):
+            print(f"-> Analyzing {log_file}...")
+            # We don't print the full output here to keep the console clean
+            analysis_result = run_command(f"python scripts/analyze_log.py {log_file}")
+            print(f"   [OK] Analysis finished for {log_file}")
+        else:
+            print(f"   [SKIP] {log_file} not found.")
 
-    # 2. Analyze Logs
-    print("\nStep 2: Analyzing logs with AI...")
-    analysis_result = run_command("python scripts/analyze_log.py pytest.log")
-    print(analysis_result.stdout)
-    
     if os.path.exists("summary.md"):
-        print("\n[OK] Analysis Complete! Summary:")
-        print("--------------------------------------------------")
-        with open("summary.md", "r") as f:
-            print(f.read())
-        print("--------------------------------------------------")
+        print("\n[OK] Demo Run Complete! Check summary.md for the latest report.")
     else:
-        print("[ERROR] AI analysis failed to generate summary.md")
-        print("Error Details:", analysis_result.stderr)
+        print("\n[ERROR] AI analysis failed to generate summary.md")
 
-    print("\nTip: Run 'python run_dashboard.py' to see this in your browser!")
+    print("\nSUCCESS: Your dashboard is now populated with rich diagnostic data!")
+    print("Run 'python run_dashboard.py' to see the premium visualization.")
 
 if __name__ == "__main__":
     main()

@@ -34,5 +34,53 @@
         "status": "failed",
         "summary": "The test suite `tests/test_demo.py` experienced 6 failures and 2 passes. Failures include an intentional assertion failure, a `ValueError`, `ZeroDivisionError`, `KeyError`, `TypeError`, and a `Runtime...",
         "root_cause": "s:**     *   `test_failure`: Intentional failure to demonstrate AI analysis.     *   `test_error`: A `ValueError` is explicitly raised, indicating a problem in the application's error handling or logi..."
+    },
+    {
+        "timestamp": "2026-05-12T11:17:03.013393",
+        "status": "failed",
+        "summary": "Summary The test suite `tests/test_complex.py` failed with 4 distinct errors involving database concurrency, environment configuration, and resource management. A critical `KeyError` was triggered by ...",
+        "root_cause": "Root Cause of Failures *   **Database Deadlock:** `test_database_deadlock` failed because a transaction was unable to acquire locks on the `inventory` and `orders` tables simultaneously, likely due to..."
+    },
+    {
+        "timestamp": "2026-05-12T11:17:52.931840",
+        "status": "failed",
+        "summary": ". 3-Line Summary:**  *   The log indicates issues with the `AuthService`, `InventoryMgr` and `PaymentGateway` services. *   `AuthService` experienced failures due to invalid token signatures. `Invento...",
+        "root_cause": ". Root Cause of Failures:**  *   **`AuthService` Failures:** Invalid token signatures suggest a problem with the authentication process. This could be due to:     *   Token tampering or corruption.   ..."
+    },
+    {
+        "timestamp": "2026-05-12T11:19:23.318350",
+        "status": "failed",
+        "summary": "3-Line Summary * **Test Status:** 6 tests failed and 2 passed out of 8 total tests in the `tests/test_demo.py` suite. * **Environment:** Executed on Windows (Python 3.13.13) with failures across multi...",
+        "root_cause": "Root Cause of Failures * **`test_failure`:** Assertion failure caused by a hardcoded mismatch (expected 42, received 0). * **`test_error` & `test_deep_traceback_failure`:** Explicitly raised exception..."
+    },
+    {
+        "timestamp": "2026-05-12T11:19:35.806567",
+        "status": "failed",
+        "summary": "Summary The build failed with **4 out of 5 tests failing** in `tests/test_complex.py` within a Windows Python 3.13 environment. The failures are critical, spanning external API timeouts, database conc...",
+        "root_cause": "Root Cause of Failures *   **`test_api_integration_failure`**: The upstream payment gateway (`api.payments.internal`) returned a **500 Internal Server Error** due to a timeout, causing a `ConnectionEr..."
+    },
+    {
+        "timestamp": "2026-05-12T11:19:46.561128",
+        "status": "failed",
+        "summary": "68.1.45`).  It could be a compromised client or a misconfiguration.     *   Verify the JWT signing key being used by the AuthService. Ensure it matches the key used to sign the tokens.     *   Impleme...",
+        "root_cause": "of Failures: *   **PaymentGateway ConnectTimeout:** The PaymentGateway failed due to a `requests.exceptions.ConnectTimeout` when trying to connect to `api.stripe.com`. This indicates a network connect..."
+    },
+    {
+        "timestamp": "2026-05-12T11:20:44.521966",
+        "status": "failed",
+        "summary": "Summary The test suite executed on Windows using Python 3.13.13, resulting in **6 failures and 2 passes** out of 8 total tests. The failures encompass a wide range of common programming errors, includ...",
+        "root_cause": "Root Cause of Failures *   **`test_failure`**: Logic mismatch where the `actual` variable (0) does not match the `expected` value (42). *   **`test_error` & `test_deep_traceback_failure`**: Manual inv..."
+    },
+    {
+        "timestamp": "2026-05-12T11:20:57.939966",
+        "status": "failed",
+        "summary": "3-Line Summary *   The test suite executed 5 tests with a **80% failure rate** (4 failed, 1 passed) on a Python 3.13 Windows environment. *   Critical failures were detected across API integration, da...",
+        "root_cause": "Root Cause of Failures *   **`test_api_integration_failure`**: An upstream dependency error. The payment gateway (`api.payments.internal`) returned a **500 Internal Server Error** due to a timeout. * ..."
+    },
+    {
+        "timestamp": "2026-05-12T11:21:12.679926",
+        "status": "failed",
+        "summary": ". Summary * The build encountered multiple service-wide issues, primarily centered around external API timeouts and intermittent security authentication failures. * While many requests succeeded, the ...",
+        "root_cause": ". Root Cause of Failures *   **External API Connectivity (Primary Failure):** The `PaymentGateway` is throwing `requests.exceptions.ConnectTimeout` when attempting to reach `api.stripe.com`. The \"Max ..."
     }
 ]

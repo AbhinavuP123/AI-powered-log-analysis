@@ -36,25 +36,28 @@ jobs:
       - name: Run Tests
         id: run_tests
         run: |
-          # Run pytest and capture output. 
+          # Run all tests and capture output
           pytest --tb=short > pytest.log 2>&1 || echo "Tests failed."
         
+      - name: Generate Service Logs
+        run: |
+          python scripts/generate_service_logs.py
+
       - name: AI Log Analysis
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
         run: |
-          # Check which log to analyze (Build or Test)
-          if [ -f build.log ] && grep -q "ERROR" build.log; then
-            echo "Analyzing Build Failure..."
-            python scripts/analyze_log.py build.log
+          # Analyze the most "interesting" log
+          if [ -f service.log ] && grep -q "ERROR" service.log; then
+            echo "Analyzing Service Logs..."
+            python scripts/analyze_log.py service.log
           elif [ -f pytest.log ] && (grep -q "FAILED" pytest.log || grep -q "ERROR" pytest.log); then
             echo "Analyzing Test Failure..."
             python scripts/analyze_log.py pytest.log
           else
             echo "No failures detected to analyze."
-            # Optional: Generate a 'passed' entry for the dashboard
             echo "All steps passed." > success.log
             python scripts/analyze_log.py success.log
           fi
