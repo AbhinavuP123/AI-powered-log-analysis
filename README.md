@@ -82,6 +82,22 @@ Visit `http://localhost:8000/dashboard/` to view the interactive analysis portal
 
 ---
 
+## 📊 Where to Find Reports
+
+The system generates reports in multiple locations depending on where it's running:
+
+### 🏠 Local Environment
+*   **`summary.md`**: The latest AI-generated diagnostic report in Markdown format.
+*   **Interactive Dashboard**: Run `python run_dashboard.py` and visit `http://localhost:8000/dashboard/`.
+*   **`db.json`**: The persistent database containing the history of all analyzed failures.
+
+### ☁️ GitHub Actions
+*   **Job Summary**: Click on any workflow run to see the "AI Log Analysis" section at the bottom of the page.
+*   **PR Comments**: If triggered by a Pull Request, the AI posts its findings directly as a comment.
+*   **Artifacts**: Download the `ai-analysis-results` package from the workflow run for the full logs and summary.
+
+---
+
 ## 🌟 Demo Guide
 
 ### 1. Simple Validation
