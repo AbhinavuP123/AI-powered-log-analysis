@@ -1,109 +1,138 @@
-============================= test session starts =============================
-platform win32 -- Python 3.13.13, pytest-9.0.3, pluggy-1.6.0 -- C:\Users\hp\AppData\Local\Microsoft\WindowsApps\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\python.exe
-cachedir: .pytest_cache
-rootdir: C:\Users\hp\Downloads\latest_project_
-plugins: anyio-4.12.1
-collecting ... collected 8 items
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-9.0.3, pluggy-1.6.0
+rootdir: /home/runner/work/AI-powered-log-analysis/AI-powered-log-analysis
+plugins: anyio-4.13.0
+collected 13 items
 
-tests/test_demo.py::test_success PASSED                                  [ 12%]
-tests/test_demo.py::test_failure FAILED                                  [ 25%]
-tests/test_demo.py::test_error FAILED                                    [ 37%]
-tests/test_demo.py::test_math_error FAILED                               [ 50%]
-tests/test_demo.py::test_data_error FAILED                               [ 62%]
-tests/test_demo.py::test_type_mismatch FAILED                            [ 75%]
-tests/test_demo.py::test_large_output_success PASSED                     [ 87%]
-tests/test_demo.py::test_deep_traceback_failure FAILED                   [100%]
+tests/test_complex.py FFFF.                                              [ 38%]
+tests/test_demo.py .FFFFF.F                                              [100%]
 
-================================== FAILURES ===================================
-________________________________ test_failure _________________________________
-
-    def test_failure():
-        """A test that intentionally fails to trigger AI analysis."""
-        expected = 42
-        actual = 0
-        print(f"Debug Info: Expected {expected}, but got {actual}")
->       assert actual == expected, "Intentionally failing this test for AI analysis demonstration."
-E       AssertionError: Intentionally failing this test for AI analysis demonstration.
-E       assert 0 == 42
-
-tests\test_demo.py:13: AssertionError
----------------------------- Captured stdout call -----------------------------
+=================================== FAILURES ===================================
+_________________________ test_api_integration_failure _________________________
+tests/test_complex.py:16: in test_api_integration_failure
+    raise ConnectionError(f"Failed to process payment: Upstream service returned {status_code}")
+E   ConnectionError: Failed to process payment: Upstream service returned 500
+----------------------------- Captured stdout call -----------------------------
+Connecting to API endpoint: https://api.payments.internal/v1/charge
+Request Payload: {'amount': 500, 'currency': 'USD', 'customer_id': 'cust_9928'}
+ERROR: API returned status code 500
+Response: {'error': 'Internal Server Error', 'message': 'Upstream timeout in payment gateway'}
+____________________________ test_database_deadlock ____________________________
+tests/test_complex.py:28: in test_database_deadlock
+    raise RuntimeError(f"Database transaction failed: {error_msg}")
+E   RuntimeError: Database transaction failed: Deadlock found when trying to get lock; try restarting transaction
+----------------------------- Captured stdout call -----------------------------
+Starting transaction for user_id: 404
+Acquiring lock on 'inventory' table...
+Acquiring lock on 'orders' table...
+DB Error: Deadlock found when trying to get lock; try restarting transaction
+_________________________ test_config_validation_error _________________________
+tests/test_complex.py:39: in test_config_validation_error
+    raise KeyError(f"Configuration Error: '{var}' is not set in the environment.")
+E   KeyError: "Configuration Error: 'SECRET_TOKEN' is not set in the environment."
+----------------------------- Captured stdout call -----------------------------
+Checking environment variable: DB_HOST
+Checking environment variable: API_KEY
+Checking environment variable: SECRET_TOKEN
+CRITICAL: Missing required configuration: SECRET_TOKEN
+________________________ test_resource_leak_simulation _________________________
+tests/test_complex.py:50: in test_resource_leak_simulation
+    raise OSError(24, "Too many open files")
+E   OSError: [Errno 24] Too many open files
+----------------------------- Captured stdout call -----------------------------
+Initializing file processor...
+Opened file handle: /tmp/proc_data_0.tmp
+Opened file handle: /tmp/proc_data_1.tmp
+Opened file handle: /tmp/proc_data_2.tmp
+Opened file handle: /tmp/proc_data_3.tmp
+Opened file handle: /tmp/proc_data_4.tmp
+Opened file handle: /tmp/proc_data_5.tmp
+Opened file handle: /tmp/proc_data_6.tmp
+Opened file handle: /tmp/proc_data_7.tmp
+Opened file handle: /tmp/proc_data_8.tmp
+Opened file handle: /tmp/proc_data_9.tmp
+Opened file handle: /tmp/proc_data_10.tmp
+Opened file handle: /tmp/proc_data_11.tmp
+Opened file handle: /tmp/proc_data_12.tmp
+Opened file handle: /tmp/proc_data_13.tmp
+Opened file handle: /tmp/proc_data_14.tmp
+Opened file handle: /tmp/proc_data_15.tmp
+Opened file handle: /tmp/proc_data_16.tmp
+Opened file handle: /tmp/proc_data_17.tmp
+Opened file handle: /tmp/proc_data_18.tmp
+Opened file handle: /tmp/proc_data_19.tmp
+Opened file handle: /tmp/proc_data_20.tmp
+Opened file handle: /tmp/proc_data_21.tmp
+Opened file handle: /tmp/proc_data_22.tmp
+Opened file handle: /tmp/proc_data_23.tmp
+Opened file handle: /tmp/proc_data_24.tmp
+Opened file handle: /tmp/proc_data_25.tmp
+Opened file handle: /tmp/proc_data_26.tmp
+Opened file handle: /tmp/proc_data_27.tmp
+Opened file handle: /tmp/proc_data_28.tmp
+Opened file handle: /tmp/proc_data_29.tmp
+Opened file handle: /tmp/proc_data_30.tmp
+Opened file handle: /tmp/proc_data_31.tmp
+Opened file handle: /tmp/proc_data_32.tmp
+Opened file handle: /tmp/proc_data_33.tmp
+Opened file handle: /tmp/proc_data_34.tmp
+Opened file handle: /tmp/proc_data_35.tmp
+Opened file handle: /tmp/proc_data_36.tmp
+Opened file handle: /tmp/proc_data_37.tmp
+Opened file handle: /tmp/proc_data_38.tmp
+Opened file handle: /tmp/proc_data_39.tmp
+Opened file handle: /tmp/proc_data_40.tmp
+Opened file handle: /tmp/proc_data_41.tmp
+Opened file handle: /tmp/proc_data_42.tmp
+Opened file handle: /tmp/proc_data_43.tmp
+Opened file handle: /tmp/proc_data_44.tmp
+Opened file handle: /tmp/proc_data_45.tmp
+Opened file handle: /tmp/proc_data_46.tmp
+Opened file handle: /tmp/proc_data_47.tmp
+Opened file handle: /tmp/proc_data_48.tmp
+Opened file handle: /tmp/proc_data_49.tmp
+Opened file handle: /tmp/proc_data_50.tmp
+Failed to open handle 51: Too many open files
+_________________________________ test_failure _________________________________
+tests/test_demo.py:13: in test_failure
+    assert actual == expected, "Intentionally failing this test for AI analysis demonstration."
+E   AssertionError: Intentionally failing this test for AI analysis demonstration.
+E   assert 0 == 42
+----------------------------- Captured stdout call -----------------------------
 Debug Info: Expected 42, but got 0
-_________________________________ test_error __________________________________
-
-    def test_error():
-        """A test that raises an error."""
->       raise ValueError("Something went wrong in the application logic!")
-E       ValueError: Something went wrong in the application logic!
-
-tests\test_demo.py:17: ValueError
-_______________________________ test_math_error _______________________________
-
-    def test_math_error():
-        """A test that causes a division by zero."""
-        x = 10
-        y = 0
->       result = x / y
-                 ^^^^^
-E       ZeroDivisionError: division by zero
-
-tests\test_demo.py:23: ZeroDivisionError
-_______________________________ test_data_error _______________________________
-
-    def test_data_error():
-        """A test that accesses a missing key in a dictionary."""
-        data = {"name": "Antigravity", "version": "1.0"}
-        # Accessing a key that doesn't exist
-        key = "license"
-        print(f"Checking for key: {key}")
->       value = data[key]
-                ^^^^^^^^^
-E       KeyError: 'license'
-
-tests\test_demo.py:32: KeyError
----------------------------- Captured stdout call -----------------------------
+__________________________________ test_error __________________________________
+tests/test_demo.py:17: in test_error
+    raise ValueError("Something went wrong in the application logic!")
+E   ValueError: Something went wrong in the application logic!
+_______________________________ test_math_error ________________________________
+tests/test_demo.py:23: in test_math_error
+    result = x / y
+E   ZeroDivisionError: division by zero
+_______________________________ test_data_error ________________________________
+tests/test_demo.py:32: in test_data_error
+    value = data[key]
+E   KeyError: 'license'
+----------------------------- Captured stdout call -----------------------------
 Checking for key: license
-_____________________________ test_type_mismatch ______________________________
-
-    def test_type_mismatch():
-        """A test that performs an invalid type operation."""
-        a = "100"
-        b = 50
-        # This will fail because you can't add a string and an integer
->       total = a + b
-                ^^^^^
-E       TypeError: can only concatenate str (not "int") to str
-
-tests\test_demo.py:40: TypeError
-_________________________ test_deep_traceback_failure _________________________
-
-    def test_deep_traceback_failure():
-        """A test that fails deep in a call stack to test AI's root cause analysis."""
-        def level_3():
-            raise RuntimeError("Critical failure in deep application logic!")
-    
-        def level_2():
-            level_3()
-    
-        def level_1():
-            level_2()
-    
->       level_1()
-
-tests\test_demo.py:60: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-tests\test_demo.py:58: in level_1
+______________________________ test_type_mismatch ______________________________
+tests/test_demo.py:40: in test_type_mismatch
+    total = a + b
+E   TypeError: can only concatenate str (not "int") to str
+_________________________ test_deep_traceback_failure __________________________
+tests/test_demo.py:60: in test_deep_traceback_failure
+    level_1()
+tests/test_demo.py:58: in level_1
     level_2()
-tests\test_demo.py:55: in level_2
+tests/test_demo.py:55: in level_2
     level_3()
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-
-    def level_3():
->       raise RuntimeError("Critical failure in deep application logic!")
-E       RuntimeError: Critical failure in deep application logic!
-
-tests\test_demo.py:52: RuntimeError
-=========================== short test summary info ===========================
+tests/test_demo.py:52: in level_3
+    raise RuntimeError("Critical failure in deep application logic!")
+E   RuntimeError: Critical failure in deep application logic!
+=========================== short test summary info ============================
+FAILED tests/test_complex.py::test_api_integration_failure - ConnectionError: Failed to process payment: Upstream service returned 500
+FAILED tests/test_complex.py::test_database_deadlock - RuntimeError: Database transaction failed: Deadlock found when trying to get lock; try restarting transaction
+FAILED tests/test_complex.py::test_config_validation_error - KeyError: "Configuration Error: 'SECRET_TOKEN' is not set in the environment."
+FAILED tests/test_complex.py::test_resource_leak_simulation - OSError: [Errno 24] Too many open files
 FAILED tests/test_demo.py::test_failure - AssertionError: Intentionally failing this test for AI analysis demonstration.
 assert 0 == 42
 FAILED tests/test_demo.py::test_error - ValueError: Something went wrong in the application logic!
@@ -111,4 +140,4 @@ FAILED tests/test_demo.py::test_math_error - ZeroDivisionError: division by zero
 FAILED tests/test_demo.py::test_data_error - KeyError: 'license'
 FAILED tests/test_demo.py::test_type_mismatch - TypeError: can only concatenate str (not "int") to str
 FAILED tests/test_demo.py::test_deep_traceback_failure - RuntimeError: Critical failure in deep application logic!
-========================= 6 failed, 2 passed in 0.15s =========================
+========================= 10 failed, 3 passed in 0.87s =========================
