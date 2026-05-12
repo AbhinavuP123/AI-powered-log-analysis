@@ -127,5 +127,3 @@ python scripts/analyze_log.py service.log
 ### API Rate Limits (429 Error)
 If you see a `RESOURCE_EXHAUSTED` error in the logs, it means you have hit the rate limit for that specific model (common on free tiers). The script is designed to **automatically fall back** to other available models (like `gemini-1.5-flash`) to ensure the analysis still completes.
 
----
-*Last Updated: May 2026*
