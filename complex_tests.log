@@ -1,0 +1,152 @@
+============================= test session starts =============================
+platform win32 -- Python 3.13.13, pytest-9.0.3, pluggy-1.6.0 -- C:\Users\hp\AppData\Local\Microsoft\WindowsApps\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\hp\Downloads\latest_project_
+plugins: anyio-4.12.1
+collecting ... collected 5 items
+
+tests/test_complex.py::test_api_integration_failure FAILED               [ 20%]
+tests/test_complex.py::test_database_deadlock FAILED                     [ 40%]
+tests/test_complex.py::test_config_validation_error FAILED               [ 60%]
+tests/test_complex.py::test_resource_leak_simulation FAILED              [ 80%]
+tests/test_complex.py::test_flaky_service_dependency PASSED              [100%]
+
+================================== FAILURES ===================================
+________________________ test_api_integration_failure _________________________
+
+    def test_api_integration_failure():
+        """Simulates a failure in a 3rd party API integration."""
+        print("Connecting to API endpoint: https://api.payments.internal/v1/charge")
+        time.sleep(0.5)
+        print("Request Payload: {'amount': 500, 'currency': 'USD', 'customer_id': 'cust_9928'}")
+    
+        # Simulate a 500 Internal Server Error
+        status_code = 500
+        if status_code != 200:
+            print(f"ERROR: API returned status code {status_code}")
+            print("Response: {'error': 'Internal Server Error', 'message': 'Upstream timeout in payment gateway'}")
+>           raise ConnectionError(f"Failed to process payment: Upstream service returned {status_code}")
+E           ConnectionError: Failed to process payment: Upstream service returned 500
+
+tests\test_complex.py:16: ConnectionError
+---------------------------- Captured stdout call -----------------------------
+Connecting to API endpoint: https://api.payments.internal/v1/charge
+Request Payload: {'amount': 500, 'currency': 'USD', 'customer_id': 'cust_9928'}
+ERROR: API returned status code 500
+Response: {'error': 'Internal Server Error', 'message': 'Upstream timeout in payment gateway'}
+___________________________ test_database_deadlock ____________________________
+
+    def test_database_deadlock():
+        """Simulates a database deadlock during a heavy transaction."""
+        print("Starting transaction for user_id: 404")
+        print("Acquiring lock on 'inventory' table...")
+        time.sleep(0.3)
+        print("Acquiring lock on 'orders' table...")
+    
+        # Simulate a deadlock error
+        error_msg = "Deadlock found when trying to get lock; try restarting transaction"
+        print(f"DB Error: {error_msg}")
+>       raise RuntimeError(f"Database transaction failed: {error_msg}")
+E       RuntimeError: Database transaction failed: Deadlock found when trying to get lock; try restarting transaction
+
+tests\test_complex.py:28: RuntimeError
+---------------------------- Captured stdout call -----------------------------
+Starting transaction for user_id: 404
+Acquiring lock on 'inventory' table...
+Acquiring lock on 'orders' table...
+DB Error: Deadlock found when trying to get lock; try restarting transaction
+________________________ test_config_validation_error _________________________
+
+    def test_config_validation_error():
+        """Simulates a configuration error (missing required environment variable)."""
+        required_vars = ["DB_HOST", "API_KEY", "SECRET_TOKEN"]
+        current_vars = {"DB_HOST": "localhost", "API_KEY": "sk_test_123"}
+    
+        for var in required_vars:
+            print(f"Checking environment variable: {var}")
+            if var not in current_vars:
+                print(f"CRITICAL: Missing required configuration: {var}")
+>               raise KeyError(f"Configuration Error: '{var}' is not set in the environment.")
+E               KeyError: "Configuration Error: 'SECRET_TOKEN' is not set in the environment."
+
+tests\test_complex.py:39: KeyError
+---------------------------- Captured stdout call -----------------------------
+Checking environment variable: DB_HOST
+Checking environment variable: API_KEY
+Checking environment variable: SECRET_TOKEN
+CRITICAL: Missing required configuration: SECRET_TOKEN
+________________________ test_resource_leak_simulation ________________________
+
+    def test_resource_leak_simulation():
+        """Simulates an OS-level resource exhaustion error."""
+        print("Initializing file processor...")
+        open_handles = []
+        try:
+            for i in range(100):
+                # We don't actually want to crash the system, just simulate the error log
+                if i > 50:
+                    print(f"Failed to open handle {i}: Too many open files")
+>                   raise OSError(24, "Too many open files")
+E                   OSError: [Errno 24] Too many open files
+
+tests\test_complex.py:50: OSError
+---------------------------- Captured stdout call -----------------------------
+Initializing file processor...
+Opened file handle: /tmp/proc_data_0.tmp
+Opened file handle: /tmp/proc_data_1.tmp
+Opened file handle: /tmp/proc_data_2.tmp
+Opened file handle: /tmp/proc_data_3.tmp
+Opened file handle: /tmp/proc_data_4.tmp
+Opened file handle: /tmp/proc_data_5.tmp
+Opened file handle: /tmp/proc_data_6.tmp
+Opened file handle: /tmp/proc_data_7.tmp
+Opened file handle: /tmp/proc_data_8.tmp
+Opened file handle: /tmp/proc_data_9.tmp
+Opened file handle: /tmp/proc_data_10.tmp
+Opened file handle: /tmp/proc_data_11.tmp
+Opened file handle: /tmp/proc_data_12.tmp
+Opened file handle: /tmp/proc_data_13.tmp
+Opened file handle: /tmp/proc_data_14.tmp
+Opened file handle: /tmp/proc_data_15.tmp
+Opened file handle: /tmp/proc_data_16.tmp
+Opened file handle: /tmp/proc_data_17.tmp
+Opened file handle: /tmp/proc_data_18.tmp
+Opened file handle: /tmp/proc_data_19.tmp
+Opened file handle: /tmp/proc_data_20.tmp
+Opened file handle: /tmp/proc_data_21.tmp
+Opened file handle: /tmp/proc_data_22.tmp
+Opened file handle: /tmp/proc_data_23.tmp
+Opened file handle: /tmp/proc_data_24.tmp
+Opened file handle: /tmp/proc_data_25.tmp
+Opened file handle: /tmp/proc_data_26.tmp
+Opened file handle: /tmp/proc_data_27.tmp
+Opened file handle: /tmp/proc_data_28.tmp
+Opened file handle: /tmp/proc_data_29.tmp
+Opened file handle: /tmp/proc_data_30.tmp
+Opened file handle: /tmp/proc_data_31.tmp
+Opened file handle: /tmp/proc_data_32.tmp
+Opened file handle: /tmp/proc_data_33.tmp
+Opened file handle: /tmp/proc_data_34.tmp
+Opened file handle: /tmp/proc_data_35.tmp
+Opened file handle: /tmp/proc_data_36.tmp
+Opened file handle: /tmp/proc_data_37.tmp
+Opened file handle: /tmp/proc_data_38.tmp
+Opened file handle: /tmp/proc_data_39.tmp
+Opened file handle: /tmp/proc_data_40.tmp
+Opened file handle: /tmp/proc_data_41.tmp
+Opened file handle: /tmp/proc_data_42.tmp
+Opened file handle: /tmp/proc_data_43.tmp
+Opened file handle: /tmp/proc_data_44.tmp
+Opened file handle: /tmp/proc_data_45.tmp
+Opened file handle: /tmp/proc_data_46.tmp
+Opened file handle: /tmp/proc_data_47.tmp
+Opened file handle: /tmp/proc_data_48.tmp
+Opened file handle: /tmp/proc_data_49.tmp
+Opened file handle: /tmp/proc_data_50.tmp
+Failed to open handle 51: Too many open files
+=========================== short test summary info ===========================
+FAILED tests/test_complex.py::test_api_integration_failure - ConnectionError: Failed to process payment: Upstream service returned 500
+FAILED tests/test_complex.py::test_database_deadlock - RuntimeError: Database transaction failed: Deadlock found when trying to get lock; try restarting transaction
+FAILED tests/test_complex.py::test_config_validation_error - KeyError: "Configuration Error: 'SECRET_TOKEN' is not set in the environment."
+FAILED tests/test_complex.py::test_resource_leak_simulation - OSError: [Errno 24] Too many open files
+========================= 4 failed, 1 passed in 1.13s =========================

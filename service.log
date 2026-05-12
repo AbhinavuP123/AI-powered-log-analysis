@@ -1,0 +1,136 @@
+2026-05-12 11:20:30,097 | INFO  | SYSTEM | Application starting version 2.4.1-rc3
+2026-05-12 11:20:30,097 | INFO  | SYSTEM | Connected to database at cluster-db-primary.internal
+2026-05-12 11:20:30,097 | INFO  | 39c2eccb | [InventoryMgr] Processing request for /api/v1/resource
+2026-05-12 11:20:30,097 | INFO  | 39c2eccb | [InventoryMgr] Request completed successfully (200 OK)
+2026-05-12 11:20:30,097 | INFO  | db8ddcd5 | [PaymentGateway] Processing request for /api/v1/resource
+2026-05-12 11:20:30,097 | INFO  | db8ddcd5 | [PaymentGateway] Request completed successfully (200 OK)
+2026-05-12 11:20:30,097 | INFO  | 6107e4e9 | [PaymentGateway] Processing request for /api/v1/resource
+2026-05-12 11:20:30,097 | WARN  | 6107e4e9 | [PaymentGateway] Response latency higher than P95 (450ms)
+2026-05-12 11:20:30,097 | INFO  | 6107e4e9 | [PaymentGateway] Request completed successfully (200 OK)
+2026-05-12 11:20:30,097 | INFO  | 3b942753 | [EmailService] Processing request for /api/v1/resource
+2026-05-12 11:20:30,097 | WARN  | 3b942753 | [EmailService] Response latency higher than P95 (450ms)
+2026-05-12 11:20:30,097 | INFO  | 3b942753 | [EmailService] Request completed successfully (200 OK)
+2026-05-12 11:20:30,097 | INFO  | 26f76e6c | [InventoryMgr] Processing request for /api/v1/resource
+2026-05-12 11:20:30,097 | ERROR | 26f76e6c | [InventoryMgr] Failed to process transaction
+2026-05-12 11:20:30,097 | INFO  | 58721a6b | [InventoryMgr] Processing request for /api/v1/resource
+2026-05-12 11:20:30,097 | WARN  | 58721a6b | [InventoryMgr] Response latency higher than P95 (450ms)
+2026-05-12 11:20:30,097 | INFO  | 58721a6b | [InventoryMgr] Request completed successfully (200 OK)
+2026-05-12 11:20:30,097 | INFO  | 1f480ccb | [AuthService] Processing request for /api/v1/resource
+2026-05-12 11:20:30,097 | INFO  | 1f480ccb | [AuthService] Request completed successfully (200 OK)
+2026-05-12 11:20:30,097 | INFO  | 707f7c8d | [AuthService] Processing request for /api/v1/resource
+2026-05-12 11:20:30,097 | INFO  | 707f7c8d | [AuthService] Request completed successfully (200 OK)
+2026-05-12 11:20:30,097 | INFO  | 8ba0078b | [PaymentGateway] Processing request for /api/v1/resource
+2026-05-12 11:20:30,097 | ERROR | 8ba0078b | [PaymentGateway] Failed to process transaction
+Traceback (most recent call last):
+  File "payment/gateway.py", line 142, in process_charge
+    response = requests.post(GATEWAY_URL, json=payload, timeout=5)
+  File "requests/api.py", line 115, in post
+    return request('post', url, data=data, json=json, **kwargs)
+requests.exceptions.ConnectTimeout: HTTPSConnectionPool(host='api.stripe.com', port=443): Max retries exceeded with url: /v1/charges
+2026-05-12 11:20:30,097 | INFO  | 018bf121 | [AuthService] Processing request for /api/v1/resource
+2026-05-12 11:20:30,097 | INFO  | 018bf121 | [AuthService] Request completed successfully (200 OK)
+2026-05-12 11:20:30,097 | INFO  | a360b2f5 | [PaymentGateway] Processing request for /api/v1/resource
+2026-05-12 11:20:30,097 | INFO  | a360b2f5 | [PaymentGateway] Request completed successfully (200 OK)
+2026-05-12 11:20:30,097 | INFO  | 92f6072d | [InventoryMgr] Processing request for /api/v1/resource
+2026-05-12 11:20:30,097 | INFO  | 92f6072d | [InventoryMgr] Request completed successfully (200 OK)
+2026-05-12 11:20:30,097 | INFO  | 0076b390 | [InventoryMgr] Processing request for /api/v1/resource
+2026-05-12 11:20:30,097 | INFO  | 0076b390 | [InventoryMgr] Request completed successfully (200 OK)
+2026-05-12 11:20:30,097 | INFO  | d0b3c688 | [InventoryMgr] Processing request for /api/v1/resource
+2026-05-12 11:20:30,097 | INFO  | d0b3c688 | [InventoryMgr] Request completed successfully (200 OK)
+2026-05-12 11:20:30,097 | INFO  | 58a9acd9 | [EmailService] Processing request for /api/v1/resource
+2026-05-12 11:20:30,097 | INFO  | 58a9acd9 | [EmailService] Request completed successfully (200 OK)
+2026-05-12 11:20:30,097 | INFO  | fb51dde2 | [InventoryMgr] Processing request for /api/v1/resource
+2026-05-12 11:20:30,097 | INFO  | fb51dde2 | [InventoryMgr] Request completed successfully (200 OK)
+2026-05-12 11:20:30,097 | INFO  | d5558361 | [AuthService] Processing request for /api/v1/resource
+2026-05-12 11:20:30,097 | INFO  | d5558361 | [AuthService] Request completed successfully (200 OK)
+2026-05-12 11:20:30,097 | INFO  | 6b973c6b | [EmailService] Processing request for /api/v1/resource
+2026-05-12 11:20:30,097 | INFO  | 6b973c6b | [EmailService] Request completed successfully (200 OK)
+2026-05-12 11:20:30,097 | INFO  | df566225 | [InventoryMgr] Processing request for /api/v1/resource
+2026-05-12 11:20:30,097 | INFO  | df566225 | [InventoryMgr] Request completed successfully (200 OK)
+2026-05-12 11:20:30,097 | INFO  | f8f844aa | [EmailService] Processing request for /api/v1/resource
+2026-05-12 11:20:30,097 | INFO  | f8f844aa | [EmailService] Request completed successfully (200 OK)
+2026-05-12 11:20:30,097 | INFO  | 59e82ac6 | [InventoryMgr] Processing request for /api/v1/resource
+2026-05-12 11:20:30,097 | WARN  | 59e82ac6 | [InventoryMgr] Response latency higher than P95 (450ms)
+2026-05-12 11:20:30,097 | INFO  | 59e82ac6 | [InventoryMgr] Request completed successfully (200 OK)
+2026-05-12 11:20:30,097 | INFO  | fde44abf | [PaymentGateway] Processing request for /api/v1/resource
+2026-05-12 11:20:30,097 | INFO  | fde44abf | [PaymentGateway] Request completed successfully (200 OK)
+2026-05-12 11:20:30,097 | INFO  | dc10d03c | [EmailService] Processing request for /api/v1/resource
+2026-05-12 11:20:30,097 | INFO  | dc10d03c | [EmailService] Request completed successfully (200 OK)
+2026-05-12 11:20:30,097 | INFO  | 88e4fad4 | [EmailService] Processing request for /api/v1/resource
+2026-05-12 11:20:30,097 | INFO  | 88e4fad4 | [EmailService] Request completed successfully (200 OK)
+2026-05-12 11:20:30,097 | INFO  | 321207f4 | [InventoryMgr] Processing request for /api/v1/resource
+2026-05-12 11:20:30,097 | INFO  | 321207f4 | [InventoryMgr] Request completed successfully (200 OK)
+2026-05-12 11:20:30,097 | INFO  | 32a1909b | [AuthService] Processing request for /api/v1/resource
+2026-05-12 11:20:30,097 | INFO  | 32a1909b | [AuthService] Request completed successfully (200 OK)
+2026-05-12 11:20:30,097 | INFO  | 30aff7c5 | [PaymentGateway] Processing request for /api/v1/resource
+2026-05-12 11:20:30,097 | ERROR | 30aff7c5 | [PaymentGateway] Failed to process transaction
+Traceback (most recent call last):
+  File "payment/gateway.py", line 142, in process_charge
+    response = requests.post(GATEWAY_URL, json=payload, timeout=5)
+  File "requests/api.py", line 115, in post
+    return request('post', url, data=data, json=json, **kwargs)
+requests.exceptions.ConnectTimeout: HTTPSConnectionPool(host='api.stripe.com', port=443): Max retries exceeded with url: /v1/charges
+2026-05-12 11:20:30,097 | INFO  | d4e17ada | [EmailService] Processing request for /api/v1/resource
+2026-05-12 11:20:30,097 | INFO  | d4e17ada | [EmailService] Request completed successfully (200 OK)
+2026-05-12 11:20:30,097 | INFO  | 5a9db805 | [AuthService] Processing request for /api/v1/resource
+2026-05-12 11:20:30,097 | INFO  | 5a9db805 | [AuthService] Request completed successfully (200 OK)
+2026-05-12 11:20:30,097 | INFO  | 45621692 | [PaymentGateway] Processing request for /api/v1/resource
+2026-05-12 11:20:30,097 | INFO  | 45621692 | [PaymentGateway] Request completed successfully (200 OK)
+2026-05-12 11:20:30,097 | INFO  | b17a3f94 | [InventoryMgr] Processing request for /api/v1/resource
+2026-05-12 11:20:30,097 | INFO  | b17a3f94 | [InventoryMgr] Request completed successfully (200 OK)
+2026-05-12 11:20:30,097 | INFO  | cd12edfd | [EmailService] Processing request for /api/v1/resource
+2026-05-12 11:20:30,097 | INFO  | cd12edfd | [EmailService] Request completed successfully (200 OK)
+2026-05-12 11:20:30,097 | INFO  | d0c4f649 | [AuthService] Processing request for /api/v1/resource
+2026-05-12 11:20:30,097 | INFO  | d0c4f649 | [AuthService] Request completed successfully (200 OK)
+2026-05-12 11:20:30,097 | INFO  | ad67d238 | [PaymentGateway] Processing request for /api/v1/resource
+2026-05-12 11:20:30,097 | INFO  | ad67d238 | [PaymentGateway] Request completed successfully (200 OK)
+2026-05-12 11:20:30,098 | INFO  | 82552050 | [InventoryMgr] Processing request for /api/v1/resource
+2026-05-12 11:20:30,098 | WARN  | 82552050 | [InventoryMgr] Response latency higher than P95 (450ms)
+2026-05-12 11:20:30,098 | INFO  | 82552050 | [InventoryMgr] Request completed successfully (200 OK)
+2026-05-12 11:20:30,098 | INFO  | bcc96464 | [PaymentGateway] Processing request for /api/v1/resource
+2026-05-12 11:20:30,098 | INFO  | bcc96464 | [PaymentGateway] Request completed successfully (200 OK)
+2026-05-12 11:20:30,098 | INFO  | 87ba77d9 | [AuthService] Processing request for /api/v1/resource
+2026-05-12 11:20:30,098 | INFO  | 87ba77d9 | [AuthService] Request completed successfully (200 OK)
+2026-05-12 11:20:30,098 | INFO  | 58e10fec | [InventoryMgr] Processing request for /api/v1/resource
+2026-05-12 11:20:30,098 | INFO  | 58e10fec | [InventoryMgr] Request completed successfully (200 OK)
+2026-05-12 11:20:30,098 | INFO  | 0010942b | [AuthService] Processing request for /api/v1/resource
+2026-05-12 11:20:30,098 | ERROR | 0010942b | [AuthService] Failed to process transaction
+2026-05-12 11:20:30,098 | ERROR | 0010942b | [AuthService] Invalid token signature detected from IP 192.168.1.45
+2026-05-12 11:20:30,098 | INFO  | 68f326e6 | [PaymentGateway] Processing request for /api/v1/resource
+2026-05-12 11:20:30,098 | INFO  | 68f326e6 | [PaymentGateway] Request completed successfully (200 OK)
+2026-05-12 11:20:30,098 | INFO  | 143133bd | [EmailService] Processing request for /api/v1/resource
+2026-05-12 11:20:30,098 | WARN  | 143133bd | [EmailService] Response latency higher than P95 (450ms)
+2026-05-12 11:20:30,098 | INFO  | 143133bd | [EmailService] Request completed successfully (200 OK)
+2026-05-12 11:20:30,098 | INFO  | 4d59e5e4 | [AuthService] Processing request for /api/v1/resource
+2026-05-12 11:20:30,098 | WARN  | 4d59e5e4 | [AuthService] Response latency higher than P95 (450ms)
+2026-05-12 11:20:30,098 | INFO  | 4d59e5e4 | [AuthService] Request completed successfully (200 OK)
+2026-05-12 11:20:30,098 | INFO  | 8b389bd1 | [InventoryMgr] Processing request for /api/v1/resource
+2026-05-12 11:20:30,098 | INFO  | 8b389bd1 | [InventoryMgr] Request completed successfully (200 OK)
+2026-05-12 11:20:30,098 | INFO  | 5b174510 | [PaymentGateway] Processing request for /api/v1/resource
+2026-05-12 11:20:30,098 | ERROR | 5b174510 | [PaymentGateway] Failed to process transaction
+Traceback (most recent call last):
+  File "payment/gateway.py", line 142, in process_charge
+    response = requests.post(GATEWAY_URL, json=payload, timeout=5)
+  File "requests/api.py", line 115, in post
+    return request('post', url, data=data, json=json, **kwargs)
+requests.exceptions.ConnectTimeout: HTTPSConnectionPool(host='api.stripe.com', port=443): Max retries exceeded with url: /v1/charges
+2026-05-12 11:20:30,098 | INFO  | 6f8969b7 | [InventoryMgr] Processing request for /api/v1/resource
+2026-05-12 11:20:30,098 | INFO  | 6f8969b7 | [InventoryMgr] Request completed successfully (200 OK)
+2026-05-12 11:20:30,098 | INFO  | 89251137 | [AuthService] Processing request for /api/v1/resource
+2026-05-12 11:20:30,098 | INFO  | 89251137 | [AuthService] Request completed successfully (200 OK)
+2026-05-12 11:20:30,098 | INFO  | ec23ebe9 | [AuthService] Processing request for /api/v1/resource
+2026-05-12 11:20:30,098 | INFO  | ec23ebe9 | [AuthService] Request completed successfully (200 OK)
+2026-05-12 11:20:30,098 | INFO  | fbed90a7 | [AuthService] Processing request for /api/v1/resource
+2026-05-12 11:20:30,098 | WARN  | fbed90a7 | [AuthService] Response latency higher than P95 (450ms)
+2026-05-12 11:20:30,098 | INFO  | fbed90a7 | [AuthService] Request completed successfully (200 OK)
+2026-05-12 11:20:30,098 | INFO  | f65313ec | [AuthService] Processing request for /api/v1/resource
+2026-05-12 11:20:30,098 | INFO  | f65313ec | [AuthService] Request completed successfully (200 OK)
+2026-05-12 11:20:30,098 | INFO  | 597048de | [PaymentGateway] Processing request for /api/v1/resource
+2026-05-12 11:20:30,098 | WARN  | 597048de | [PaymentGateway] Response latency higher than P95 (450ms)
+2026-05-12 11:20:30,098 | ERROR | 597048de | [PaymentGateway] Failed to process transaction
+Traceback (most recent call last):
+  File "payment/gateway.py", line 142, in process_charge
+    response = requests.post(GATEWAY_URL, json=payload, timeout=5)
+  File "requests/api.py", line 115, in post
+    return request('post', url, data=data, json=json, **kwargs)
+requests.exceptions.ConnectTimeout: HTTPSConnectionPool(host='api.stripe.com', port=443): Max retries exceeded with url: /v1/charges
